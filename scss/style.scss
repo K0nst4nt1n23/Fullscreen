@@ -27,7 +27,7 @@ body {
 .wrapper {}
 // ================================================================================================
 
-// Main ===========================================================================================
+// Section-01 =====================================================================================
 
 .page {
     counter-reset: item;
@@ -44,34 +44,39 @@ body {
             @include adaptiv-value("font-size", 60, 25, 1920, 1920, 320, 1);
             color: $softColor;
             font-weight: 700;
-        }
-
-        // .page__section-center
-        &-center {
-            // display: flex;
-            // align-items: center;
-            // padding-top: 20px;
-            // padding-bottom: 20px;
+            z-index: 1;
+            @media (max-width: $mobile) {
+                top: 30px;
+                right: 50%;
+            }
         }
     }
 }
 
-.main {
+.screen-01 {
 
-    // .main__container
+    // .screen-01__container
     &__container {
         min-height: 100%;
         display: flex;
-        align-items: center;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        .main__body {
+        @media (min-width: $mobile) {
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        @media (max-width: $mobile) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .screen-01__body {
             flex: 1 1 auto;
+            //flex-grow: 1;
             position: relative;
             @include adaptiv-value("padding-left", 240, 15, 1920, 1920, 320, 1);
             @include adaptiv-value("padding-right", 240, 15, 1920, 1920, 320, 1);
-            @include adaptiv-value("padding-top", 155, 15, 1920, 1920, 320, 1);
-            @include adaptiv-value("padding-bottom", 155, 15, 1920, 1920, 320, 1);
+            @include adaptiv-value("padding-top", 155, 50, 1920, 1920, 320, 1);
+            @include adaptiv-value("padding-bottom", 155, 50, 1920, 1920, 320, 1);
             z-index: 1;
             &::after {
                 content: "";
@@ -83,36 +88,40 @@ body {
                 background-color: rgba(28, 31, 37, 0.6);
             }
 
-            .main__section-header {
+            .screen-01__section-header {
                 z-index: 1;
                 position: relative;
             }
 
-            .main__image {
+            .screen-01__image {
                 position: absolute;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                //**filter: brightness(60%)
+            }
+            @media (max-width: $mobile) {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                min-height: 100%;
             }
         }
-
     }
 }
 
 // Общий компонент ==============================
 .section-header {
 
-    // .section-header__text
-    &__text {
+    // .section-header__label
+    &__label {
         color: $mainColor;
         line-height: calc(31 / 25 * 100%);
 
         &:not(:last-child) {
-            @include adaptiv-value("margin-bottom", 32, 18, 1920, 1920, 320, 1);
-            margin-bottom: 32px;
+            @include adaptiv-value("margin-bottom", 32, 20, 1920, 1920, 320, 1);
+            //margin-bottom: 32px;
         }
     }
 
@@ -123,13 +132,24 @@ body {
         font-weight: 700;
         line-height: calc(75 / 60 * 100%);
         max-width: 470px;
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 132, 20, 1920, 1920, 320, 1);
+        }
         &-big {
             max-width: 890px;
         }
     }
 
+    // .section-header__text
+    &__text {
+        color: $mainColor;
+        line-height: calc(45 / 25 * 100%);
+        max-width: 540px;
+    }
+
+    // .section-header__light
     &-ligth {
-        .section-header__text {
+        .section-header__label {
             color: $softColor;
         }
 
@@ -140,5 +160,42 @@ body {
 }
 // ==============================================
 // ================================================================================================
-//TODO: Счетчик секции привязать к высоте блока "main__body" через js!
-//TODO: Счетчик секции привязать к псевдоэлементу after, а картинку затемнить через filter: brightness(60%) для .main__image
+//TODO: Счетчик секции привязать к высоте блока "screen-01__body" через js!
+//TODO: Изменить цвет булета при скролле (когда переходим на второй слайд)
+
+// Section-02 =====================================================================================
+.screen-02 {
+
+    // .screen-02__container
+    &__container {
+        @media (min-width: $mobile) {
+            min-height: 100%;
+            display: flex;
+            align-items: flex-start;
+        }
+    }
+
+    // .screen-02__content
+    &__content {
+        flex: 0 1 50%;
+        align-self: center;
+        padding-top: 45px;
+        padding-bottom: 45px;
+        @media (min-width: $mobile) {
+            padding-right: 20px;
+        }
+    }
+
+    // .screen-02__section-header
+    &__section-header {}
+
+    // .screen-02__image
+    &__image {
+        flex: 0 1 50%;
+        img {
+            max-width: 100%;
+        }
+    }
+}
+// ================================================================================================
+//TODO: Поработать над адаптивностью изображения Screen-02

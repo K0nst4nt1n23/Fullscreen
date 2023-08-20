@@ -355,7 +355,6 @@ body {
 
 .section-header__label {
   color: #6A6E77;
-  line-height: 124%;
 }
 .section-header__label:not(:last-child) {
   margin-bottom: 32px;
@@ -432,4 +431,102 @@ body {
 }
 .screen-02__image img {
   max-width: 100%;
+}
+
+@media (min-width: 767.98px) {
+  .screen-03__container {
+    min-height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+  }
+}
+.screen-03__content {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 50%;
+          flex: 0 1 50%;
+  -ms-flex-item-align: center;
+      align-self: center;
+  padding-top: 45px;
+  padding-bottom: 45px;
+}
+@media (min-width: 767.98px) {
+  .screen-03__content {
+    padding-bottom: 50px;
+  }
+}
+.screen-03__image {
+  position: relative;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 50%;
+          flex: 0 1 50%;
+}
+.screen-03__image img {
+  max-width: 100%;
+}
+@media (min-width: 767.98px) {
+  .screen-03__image {
+    padding-right: 20px;
+    left: -240px;
+  }
+}
+@media (min-width: 767.98px) and (max-width: 1920px) {
+  .screen-03__image {
+    left: calc(-15px + -225 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
+@media (min-width: 767.98px) {
+  .screen-03__image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+}
+.screen-03 .values-screen-03 {
+  padding-top: 120px;
+  display: grid;
+  gap: 76px;
+}
+@media (max-width: 1920px) {
+  .screen-03 .values-screen-03 {
+    padding-top: calc(45px + 75 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
+@media (max-width: 1920px) {
+  .screen-03 .values-screen-03 {
+    gap: calc(25px + 51 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
+.screen-03 .values-screen-03__item {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 15px;
+}
+.screen-03 .values-screen-03__label {
+  color: #6A6E77;
+}
+.screen-03 .values-screen-03__value {
+  color: #1C1F25;
+  font-weight: 700;
+}
+.screen-03 .values-screen-03__line {
+  grid-column: span 2;
+  background: rgba(28, 31, 37, 0.1);
+  height: 10px;
+}
+.screen-03 .values-screen-03__line span {
+  display: block;
+  height: 10px;
+  background-color: #1C1F25;
 }

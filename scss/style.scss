@@ -292,3 +292,62 @@ body {
     }
 }
 // ================================================================================================
+
+// Section-04 =====================================================================================
+
+.screen-04 {
+
+    // .screen-04__container
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    // .screen-04__section-header
+    &__section-header {
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 153, 35, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .screen-04__advantages
+    &__advantages {}
+}
+
+.advantages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    @include adaptiv-value("gap", 50, 20, 1920, 1920, 320, 1);
+
+    // .advantages__item
+    &__item {}
+
+    // .advantages__icon
+    &__icon {
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 26, 10, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .advantages__title
+    &__title {
+        @include adaptiv-value("font-size", 30, 20, 1920, 1920, 320, 1);
+        font-weight: 700;
+        line-height: calc(38 / 30 * 100%);
+        color: $darkColor;
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 32, 10, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .advantages__text
+    &__text {
+        line-height: calc(45 / 25 * 100%);
+    }
+}
+
+// ================================================================================================
+//TODO: ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss

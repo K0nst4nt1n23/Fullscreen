@@ -19,7 +19,6 @@ body {
 }
 
 [class*="__container"] {
-    //flex: 1 1 auto;
     @include adaptiv-value("padding-left", 240, 15, 1920, 1920, 320, 1);
     @include adaptiv-value("padding-right", 240, 15, 1920, 1920, 320, 1);
 }
@@ -349,5 +348,66 @@ body {
     }
 }
 
+// ================================================================================================
+
+// Section-05 =====================================================================================
+.screen-05 {
+
+    // .screen-05__container
+    &__container {
+        @media (min-width: $mobile) {
+            min-height: 100%;
+            display: flex;
+        }
+    }
+
+    // .screen-05__content
+    &__content {
+        flex: 0 1 50%;
+        align-self: center;
+        padding-top: 45px;
+        padding-bottom: 45px;
+
+        @media (min-width: $mobile) {
+            padding-right: 20px;
+        }
+    }
+
+    // .screen-05__section-header
+    &__section-header {}
+
+    // .screen-05__images
+    &__images {
+        flex: 0 1 50%;
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    // .screen-05__image
+    &__image {
+        position: relative;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: $mobile) {
+            @include adaptiv-value("margin-left", -240, -15, 1920, 1920, 320, 1);
+            @include adaptiv-value("margin-right", -240, -15, 1920, 1920, 320, 1);
+
+            img {
+                position: relative;
+                max-width: 100%;
+                width: auto;
+                height: auto;
+            }
+        }
+    }
+}
 // ================================================================================================
 //TODO: ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss

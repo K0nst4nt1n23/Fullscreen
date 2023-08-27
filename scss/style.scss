@@ -15,6 +15,7 @@ $lightColor: #FFFFFF;
 
 body {
     font-family: 'Quicksand';
+    color: $mainColor;
     @include adaptiv-value("font-size", 25, 16, 1920, 1920, 320, 1);
 }
 
@@ -24,10 +25,16 @@ body {
 }
 
 .wrapper {}
-// ================================================================================================
-
-// Section-01 =====================================================================================
-
+// Общие компоненты =============================
+.text {
+    line-height: calc(45 / 25 * 100%);
+}
+.title {
+    @include adaptiv-value("font-size", 30, 20, 1920, 1920, 320, 1);
+    font-weight: 700;
+    line-height: calc(38 / 30 * 100%);
+    color: $darkColor;
+}
 .page {
     counter-reset: item;
 
@@ -51,7 +58,90 @@ body {
         }
     }
 }
+.section-header {
 
+    // .section-header__label
+    &__label {
+        color: $mainColor;
+
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 32, 20, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .section-header__title
+    &__title {
+        color: $darkColor;
+        @include adaptiv-value("font-size", 60, 35, 1920, 1920, 320, 1);
+        font-weight: 700;
+        line-height: calc(75 / 60 * 100%);
+        max-width: 470px;
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 132, 20, 1920, 1920, 320, 1);
+        }
+        &-big {
+            max-width: 890px;
+        }
+    }
+
+    // .section-header__text
+    &__text {
+        max-width: 540px;
+    }
+
+    // .section-header__light
+    &-ligth {
+        .section-header__label {
+            color: $softColor;
+        }
+
+        .section-header__title {
+            color: $lightColor;
+        }
+    }
+}
+.services {
+    display: grid;
+    @include adaptiv-value("gap", 60, 30, 1920, 1920, 320, 1);
+    // .services__item
+    &__item {
+        display: flex;
+        align-items: center;
+        @include adaptiv-value("gap", 50, 10, 1920, 1920, 320, 1);
+        @media (max-width: $mobileSmall) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    // .services__icon
+    &__icon {
+        flex: 0 0 60px;
+        height: 60px;
+        img {
+            max-width: 100%;
+        }
+    }
+
+    // .services__body
+    &__body {
+    }
+
+    // .services__title
+    &__title {
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 32, 15, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .services__text
+    &__text {
+    }
+}
+// ==============================================
+// ================================================================================================
+
+// Section-01 =====================================================================================
 .screen-01 {
 
     // .screen-01__container
@@ -109,53 +199,6 @@ body {
         }
     }
 }
-
-// Общий компонент ==============================
-.section-header {
-
-    // .section-header__label
-    &__label {
-        color: $mainColor;
-
-        &:not(:last-child) {
-            @include adaptiv-value("margin-bottom", 32, 20, 1920, 1920, 320, 1);
-        }
-    }
-
-    // .section-header__title
-    &__title {
-        color: $darkColor;
-        @include adaptiv-value("font-size", 60, 35, 1920, 1920, 320, 1);
-        font-weight: 700;
-        line-height: calc(75 / 60 * 100%);
-        max-width: 470px;
-        &:not(:last-child) {
-            @include adaptiv-value("margin-bottom", 132, 20, 1920, 1920, 320, 1);
-        }
-        &-big {
-            max-width: 890px;
-        }
-    }
-
-    // .section-header__text
-    &__text {
-        color: $mainColor;
-        line-height: calc(45 / 25 * 100%);
-        max-width: 540px;
-    }
-
-    // .section-header__light
-    &-ligth {
-        .section-header__label {
-            color: $softColor;
-        }
-
-        .section-header__title {
-            color: $lightColor;
-        }
-    }
-}
-// ==============================================
 // ================================================================================================
 //TODO: Счетчик секции привязать к высоте блока "screen-01__body" через js!
 //TODO: Изменить цвет булета при скролле (когда переходим на второй слайд)
@@ -293,7 +336,6 @@ body {
 // ================================================================================================
 
 // Section-04 =====================================================================================
-
 .screen-04 {
 
     // .screen-04__container
@@ -315,7 +357,6 @@ body {
     // .screen-04__advantages
     &__advantages {}
 }
-
 .advantages {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -333,10 +374,6 @@ body {
 
     // .advantages__title
     &__title {
-        @include adaptiv-value("font-size", 30, 20, 1920, 1920, 320, 1);
-        font-weight: 700;
-        line-height: calc(38 / 30 * 100%);
-        color: $darkColor;
         &:not(:last-child) {
             @include adaptiv-value("margin-bottom", 32, 10, 1920, 1920, 320, 1);
         }
@@ -344,10 +381,8 @@ body {
 
     // .advantages__text
     &__text {
-        line-height: calc(45 / 25 * 100%);
     }
 }
-
 // ================================================================================================
 
 // Section-05 =====================================================================================
@@ -407,6 +442,37 @@ body {
                 height: auto;
             }
         }
+    }
+}
+// ================================================================================================
+
+// Section-06 =====================================================================================
+.screen-06 {
+    padding-top: 45px;
+    padding-bottom: 45px;
+    // .screen-06__container
+    &__container {
+        @media (min-width: $tablet) {
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    // .screen-06__section-header
+    &__section-header {
+        flex: 0 1 50%;
+        @media (min-width: $tablet) {
+            padding-right: 20px;
+        }
+        @media (max-width: $tablet) {
+            padding-bottom: 30px;
+        }
+    }
+
+    // .screen-06__services
+    &__services {
+        flex: 0 1 50%;
     }
 }
 // ================================================================================================

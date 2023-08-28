@@ -555,4 +555,87 @@ body {
     }
 }
 // ================================================================================================
+// Section-08 =====================================================================================
+.screen-08 {
+
+    // .screen-08__container
+    &__container {
+        @media (min-width: $mobile) {
+            min-height: 100%;
+            display: flex;
+            flex-direction: row-reverse;
+        }
+    }
+
+    // .screen-08__content
+    &__content {
+        flex: 0 1 50%;
+        align-self: center;
+        padding-top: 45px;
+        padding-bottom: 45px;
+        @include adaptiv-value("padding-left", 240, 30, 1920, 1920, 768, 1);
+
+        @media (min-width: $mobile) {
+            padding-bottom: 50px;
+        }
+    }
+
+    // .screen-08__section-header
+    &__section-header {
+        @include adaptiv-value("margin-bottom", 190, 30, 1920, 1920, 320, 1);
+    }
+
+    // .screen-08__projects
+    &__projects {
+        display: flex;
+        @include adaptiv-value("gap", 87, 20, 1920, 1920, 320, 1);
+    }
+
+    // .screen-08__image
+    &__image {
+        flex: 0 1 50%;
+        position: relative;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: $mobile) {
+            @include adaptiv-value("margin-left", -240, -15, 1920, 1920, 320, 1);
+            @include adaptiv-value("margin-right", -240, -15, 1920, 1920, 320, 1);
+
+            img {
+                position: relative;
+                min-width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
+.projects {
+
+    // .projects__item
+    &__item {}
+
+    // .projects__value
+    &__value {
+        color: $darkColor;
+        @include adaptiv-value("font-size", 60, 35, 1920, 1920, 320, 1);
+        font-weight: 700;
+        line-height: calc(75 / 60 * 100%);
+
+        &:not(:last-child) {
+            margin-bottom: 16px;
+        }
+    }
+
+    // .projects__label
+    &__label {}
+}
+// ================================================================================================
 //TODO: ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss

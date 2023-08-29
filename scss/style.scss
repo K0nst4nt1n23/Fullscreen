@@ -35,6 +35,7 @@ body {
     line-height: calc(38 / 30 * 100%);
     color: $darkColor;
 }
+
 .page {
     counter-reset: item;
 
@@ -58,6 +59,7 @@ body {
         }
     }
 }
+
 .section-header {
 
     // .section-header__label
@@ -65,7 +67,7 @@ body {
         color: $mainColor;
 
         &:not(:last-child) {
-            @include adaptiv-value("margin-bottom", 32, 20, 1920, 1920, 320, 1);
+            @include adaptiv-value("margin-bottom", 32, 15, 1920, 1920, 320, 1);
         }
     }
 
@@ -100,6 +102,7 @@ body {
         }
     }
 }
+
 .services {
     display: grid;
     @include adaptiv-value("gap", 60, 30, 1920, 1920, 320, 1);
@@ -379,6 +382,7 @@ body {
     // .screen-04__advantages
     &__advantages {}
 }
+
 .advantages {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -617,6 +621,7 @@ body {
         }
     }
 }
+
 .projects {
 
     // .projects__item
@@ -636,6 +641,122 @@ body {
 
     // .projects__label
     &__label {}
+}
+// ================================================================================================
+
+// Section-09 =====================================================================================
+.screen-09 {
+
+    // .screen-09__container
+    &__container {
+        display: flex;
+        flex-direction: row-reverse;
+        min-height: 100%;
+        @media (max-width: $tablet) {
+            flex-direction: column;
+            padding-top: 50px;
+            //padding-bottom: 50px;
+        }
+    }
+
+    // .screen-09__section-header
+    &__section-header {
+        @media (min-width: $tablet) {
+            flex: 0 0 33.337%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    
+            .section-header {
+                text-align: center;
+                writing-mode: vertical-rl;
+                transform: rotate(-180deg);
+            }
+    
+            .section-header__title {
+                @include adaptiv-value("margin-right", 32, 10, 1920, 1920, 320, 1);
+            }
+    
+            .section-header__label {
+                margin-bottom: 0;
+            }
+        }
+        @media (max-width: $tablet) {
+            @include adaptiv-value("margin-bottom", 50, 10, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .screen-09__items
+    &__items {
+        flex: 0 0 66.667%;
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+        @media (max-width: $mobile) {
+            @include adaptiv-value("margin-left", -240, -15, 1920, 1920, 320, 1);
+            @include adaptiv-value("margin-right", -240, -15, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .screen-09__item
+    &__item {}
+}
+
+.item-screen-09 {
+    display: flex;
+
+    &:nth-child(odd) {
+        @media (min-width: $mobileSmall) {
+            flex-direction: row-reverse;
+
+            .item-screen-09__body {
+                text-align: right;
+            }
+        }
+    }
+    @media (max-width: $mobileSmall) {
+        flex-direction: column;
+    }
+
+    // .item-screen-09__body
+    &__body {
+        flex: 0 1 50%;
+        align-self: center;
+        padding: 20px;
+    }
+
+    // .item-screen-09__title
+    &__title {
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 32, 15, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .item-screen-09__text
+    &__text {}
+
+    // .item-screen-09__image
+    &__image {
+        flex: 0 1 50%;
+        position: relative;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: $tablet) {
+
+            img {
+                position: relative;
+                min-width: 100%;
+                height: auto;
+            }
+        }
+    }
 }
 // ================================================================================================
 //TODO: ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss

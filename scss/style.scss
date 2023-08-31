@@ -759,4 +759,80 @@ body {
     }
 }
 // ================================================================================================
+
+// Section-10 =====================================================================================
+.screen-10 {
+
+    // .screen-10__container
+    &__container {
+        display: flex;
+        min-height: 100%;
+        margin-bottom: 50px;
+        @media (max-width: $mobile) {
+            padding-top: 45px;
+            flex-direction: column;
+            gap: 30px;
+        }
+    }
+
+    // .screen-10__item
+    &__item {
+        flex: 0 1 33.333%;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        @media (max-width: $mobile) {
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+
+    // .screen-10__image
+    &__image {
+        position: relative;
+        flex-grow: 0;
+        flex-basis: calc(620 / 1080 * 100%);
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: $mobile) {
+            @include adaptiv-value("margin-left", -240, -15, 1920, 1920, 320, 1);
+            @include adaptiv-value("margin-right", -240, -15, 1920, 1920, 320, 1);
+
+            img {
+                position: relative;
+                min-width: 100%;
+                height: auto;
+            }
+        }
+    }
+
+    // .screen-10__body
+    &__body {
+        @include adaptiv-value("padding-top", 60, 25, 1920, 1920, 320, 1);
+        padding-right: 15px;
+        @media (max-width: $mobile) {
+            padding-top: 0px;
+        }
+    }
+
+    // .screen-10__title
+    &__title {
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 32, 15, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .screen-10__text
+    &__text {
+    }
+}
+// ================================================================================================
 //TODO: ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss

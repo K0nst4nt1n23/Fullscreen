@@ -1129,3 +1129,107 @@ body {
     height: auto;
   }
 }
+
+.screen-10__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 100%;
+  margin-bottom: 50px;
+}
+@media (max-width: 767.98px) {
+  .screen-10__container {
+    padding-top: 45px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 30px;
+  }
+}
+.screen-10__item {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 33.333%;
+          flex: 0 1 33.333%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+@media (max-width: 767.98px) {
+  .screen-10__item {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 20px;
+  }
+}
+.screen-10__image {
+  position: relative;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -ms-flex-preferred-size: 57.4074074074%;
+      flex-basis: 57.4074074074%;
+}
+.screen-10__image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media (max-width: 767.98px) {
+  .screen-10__image {
+    margin-left: -240px;
+    margin-right: -240px;
+  }
+}
+@media (max-width: 767.98px) and (max-width: 1920px) {
+  .screen-10__image {
+    margin-left: calc(-15px + -225 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
+@media (max-width: 767.98px) and (max-width: 1920px) {
+  .screen-10__image {
+    margin-right: calc(-15px + -225 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
+@media (max-width: 767.98px) {
+  .screen-10__image img {
+    position: relative;
+    min-width: 100%;
+    height: auto;
+  }
+}
+.screen-10__body {
+  padding-top: 60px;
+  padding-right: 15px;
+}
+@media (max-width: 1920px) {
+  .screen-10__body {
+    padding-top: calc(25px + 35 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
+@media (max-width: 767.98px) {
+  .screen-10__body {
+    padding-top: 0px;
+  }
+}
+.screen-10__title:not(:last-child) {
+  margin-bottom: 32px;
+}
+@media (max-width: 1920px) {
+  .screen-10__title:not(:last-child) {
+    margin-bottom: calc(15px + 17 * ((100vw - 320px) / (1920 - 320)));
+  }
+}

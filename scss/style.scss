@@ -835,4 +835,68 @@ body {
     }
 }
 // ================================================================================================
+
+// Section-11 =====================================================================================
+.screen-11 {
+    position: relative;
+    @media (min-width: $mobile) {
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(720 / 1920 * 100%);
+            background: rgba(196, 196, 196, 0.30);
+        }
+    }
+    // .screen-11__container
+    &__container {
+        min-height: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        padding-top: 50px;
+        padding-bottom:50px;
+        position: relative;
+        z-index: 2;
+        @media (max-width: $mobile) {
+            flex-direction: column;
+        }
+    }
+
+    // .screen-11__items
+    &__items {
+        flex: 0 1 50%;
+        @include adaptiv-value("padding-left", 240, 30, 1920, 1920, 768, 1);
+        display: grid;
+        @include adaptiv-value("gap", 60, 25, 1920, 1920, 320, 1);
+        @media (max-width: $mobile) {
+            margin-bottom: 30px;
+        }
+    }
+
+    // .screen-11__item
+    &__item {}
+
+    // .screen-11__title
+    &__title {
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 32, 15, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .screen-11__text
+    &__text {}
+
+    // .screen-11__image
+    &__image {
+        flex: 0 1 50%;
+        text-align: right;
+        img {
+            max-width: 100%
+        }
+    }
+}
+// ================================================================================================
 //TODO: ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss

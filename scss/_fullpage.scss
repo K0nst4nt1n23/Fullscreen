@@ -3,6 +3,10 @@ $pc: 1440px;
 $tablet: 991.98px;
 $mobile: 767.98px;
 $mobileSmall: 479.98px;
+$mainColor: #6A6E77;
+$darkColor: #1C1F25;
+$softColor: #E3E6EC;
+$lightColor: #FFFFFF;
 
 body {
 	.fp-init & {
@@ -89,8 +93,8 @@ body {
 		width: 5px;
 		height: 50px;
 		flex: 0 0 50px;
-        //background-color: #1C1F25;
-        background-color: #000000;
+        background-color: $darkColor;
+        outline: 1px solid rgba(227, 230, 236, 0.6);
         opacity: 0.2;
         transition: opacity 0.8s;
 		@media (any-hover: hover) {
@@ -98,9 +102,6 @@ body {
 				opacity: 1;
 			}
 		}
-        // @media (max-width: $mobileSmall) {
-        //     background-color: #E3E6EC;
-        // }
         @media (max-width: $mobile) {
             width: 25px;
             flex: 0 0 25px;

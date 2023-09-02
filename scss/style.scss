@@ -167,8 +167,8 @@ body {
             position: relative;
             @include adaptiv-value("padding-left", 240, 15, 1920, 1920, 320, 1);
             @include adaptiv-value("padding-right", 240, 15, 1920, 1920, 320, 1);
-            @include adaptiv-value("padding-top", 155, 50, 1920, 1920, 320, 1);
-            @include adaptiv-value("padding-bottom", 155, 50, 1920, 1920, 320, 1);
+            @include adaptiv-value("padding-top", 159, 50, 1920, 1920, 320, 1);
+            @include adaptiv-value("padding-bottom", 159, 50, 1920, 1920, 320, 1);
             z-index: 1;
             &::after {
                 content: "";
@@ -896,6 +896,109 @@ body {
         img {
             max-width: 100%
         }
+    }
+}
+// ================================================================================================
+
+// Section-12 =====================================================================================
+.screen-12 {
+
+    // .screen-12__container
+    &__container {
+        min-height: 100%;
+        display: flex;
+
+        @media (min-width: $mobile) {
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        @media (max-width: $mobile) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    // .screen-12__body
+    &__body {
+        flex-grow: 1;
+        position: relative;
+        @include adaptiv-value("padding-left", 240, 15, 1920, 1920, 320, 1);
+        @include adaptiv-value("padding-right", 240, 15, 1920, 1920, 320, 1);
+        @include adaptiv-value("padding-top", 250, 50, 1920, 1920, 320, 1);
+        @include adaptiv-value("padding-bottom", 250, 50, 1920, 1920, 320, 1);
+        z-index: 1;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(28, 31, 37, 0.6);
+
+            @media (max-width: $mobile) {
+                background-color: rgba(28, 31, 37, 0.9);
+            }
+        }
+
+        @media (max-width: $mobile) {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 100%;
+        }
+    }
+
+    // .screen-12__items
+    &__items {
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+
+        @media (max-width: $mobile) {
+            flex-direction: column;
+            gap: 30px;
+        }
+    }
+
+    // .screen-12__item
+    &__item {
+        flex: 0 1 33.333%;
+        color: $softColor;
+        text-align: center;
+    }
+
+    // .screen-12__value
+    &__value {
+        font-weight: 700;
+        @include adaptiv-value("font-size", 60, 35, 1920, 1920, 320, 1);
+        line-height: calc(75 / 60 * 100%);
+    }
+
+    // .screen-12__label
+    &__label {}
+
+    // .screen-12__image
+    &__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: #000000;
+    }
+
+    @media (max-width: $mobile) {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        min-height: 100%;
     }
 }
 // ================================================================================================

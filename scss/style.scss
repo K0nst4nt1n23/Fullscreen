@@ -64,8 +64,14 @@ body {
 
     // .section-header__label
     &__label {
-        color: $mainColor;
-
+        transform: translate(0px, 60%);
+        opacity: 0;
+        .active-section & {
+            opacity: 1;
+            transition: all 1s ease 0.5s;
+            transform: translate(0px, 0px);
+        }
+        line-height: calc(31 / 25);
         &:not(:last-child) {
             @include adaptiv-value("margin-bottom", 32, 15, 1920, 1920, 320, 1);
         }
@@ -73,6 +79,13 @@ body {
 
     // .section-header__title
     &__title {
+        transform: translate(0px, 10%);
+        opacity: 0;
+        .active-section & {
+            opacity: 1;
+            transition: all 1s ease 0.8s;
+            transform: translate(0px, 0px);
+        }
         color: $darkColor;
         @include adaptiv-value("font-size", 60, 35, 1920, 1920, 320, 1);
         font-weight: 700;
@@ -114,6 +127,17 @@ body {
         @media (max-width: $mobileSmall) {
             flex-direction: column;
             align-items: flex-start;
+        }
+        opacity: 0;
+        transition: opacity 0.8s;
+        .active-section & {
+            @for $i from 1 through 4 {
+                $delay: $i * 0.5;
+                &:nth-child(#{$i}) {
+                    transition-delay: #{$delay}s;
+                }
+            }
+            opacity: 1;
         }
     }
 
@@ -389,7 +413,19 @@ body {
     @include adaptiv-value("gap", 50, 20, 1920, 1920, 320, 1);
 
     // .advantages__item
-    &__item {}
+    &__item {
+        opacity: 0;
+        transition: opacity 0.8s;
+        .active-section & {
+            @for $i from 1 through 4 {
+                $delay: $i * 0.5;
+                &:nth-child(#{$i}) {
+                    transition-delay: #{$delay}s;
+                }
+            }
+            opacity: 1;
+        }
+    }
 
     // .advantages__icon
     &__icon {
@@ -643,6 +679,7 @@ body {
     &__label {}
 }
 // ================================================================================================
+//TODO: запуск счетчиков после того как закончится анимация заголовка
 
 // Section-09 =====================================================================================
 .screen-09 {
@@ -821,6 +858,13 @@ body {
         @media (max-width: $mobile) {
             padding-top: 0px;
         }
+        transform: translate(0px, 10%);
+        opacity: 0;
+        .active-section & {
+            opacity: 1;
+            transition: all 1s ease 0.5s;
+            transform: translate(0px, 0px);
+        }
     }
 
     // .screen-10__title
@@ -877,7 +921,19 @@ body {
     }
 
     // .screen-11__item
-    &__item {}
+    &__item {
+        opacity: 0;
+        transition: opacity 0.8s;
+        .active-section & {
+            @for $i from 1 through 4 {
+                $delay: $i * 0.5;
+                &:nth-child(#{$i}) {
+                    transition-delay: #{$delay}s;
+                }
+            }
+            opacity: 1;
+        }
+    }
 
     // .screen-11__title
     &__title {
@@ -1003,3 +1059,5 @@ body {
 }
 // ================================================================================================
 //TODO: ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss
+//TODO: анимация счетчиков должна начинаться с 0!
+//TODO: последовательность анимации / особенно на адаптиве

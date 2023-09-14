@@ -662,5 +662,390 @@ class FullPage {
 if (document.querySelector('[data-fp]')) {
     flsModules.fullpage = new FullPage(document.querySelector('[data-fp]'), '');
 }
+// ================================================================================================
+// Анимация счетчика ==============================================================================
+
+// Когда страница загружена - запускается функция windowLoad
+window.addEventListener('load', windowLoad);
+
+function windowLoad () {
+    // Функция инициализации
+    function digitsCountesrsInit(digitsCountersItems) {
+        let digitsCounters = digitsCountersItems ? digitsCountersItems : document.querySelectorAll('[data-digits-counter]');
+        if (digitsCounters) {
+            digitsCounters.forEach(digitsCounter => {
+                digitsCountersAnimate(digitsCounter);
+            });
+        }
+    }
+
+    // Функция анимации
+    function digitsCountersAnimate(digitsCounter) {
+        let startTimestamp = null;
+        const duration = parseInt(digitsCounter.dataset.digitsCounter) ? parseInt(digitsCounter.dataset.digitsCounter) : 1000;
+        const startValue = parseInt(digitsCounter.innerHTML);
+        const startPosition = 0;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            digitsCounter.innerHTML = Math.floor(progress * (startPosition + startValue));
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+    // Пуск при запуске страницы
+    //digitsCountesrsInit();
+
+    // Пуск при скролле (при появлении блока с счетчиком)
+    let options = {
+        threshold: 0.3
+    }
+    let observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const targetElement = entry.target;
+                const digitsCountersItems = targetElement.querySelectorAll('[data-digits-counter]');
+                if (digitsCountersItems.length) {
+                    digitsCountesrsInit(digitsCountersItems);
+                }
+                // Отключить отслеживание после срабатывания
+                //observer.unobserve(targetElement);
+            }
+        });
+    }, options)
+
+    let sections = document.querySelectorAll('.page__section');
+    if (sections.length) {
+        sections.forEach(section => {
+            observer.observe(section);
+        })
+    }
+}
+// ================================================================================================
+
+
+
+
+
+
+
+
+
+
+/*
+//!: Import =======================================================================================
+//const flsModules = {};
+// Форматування цифр типу 100 000 000
+function getDigFormat(item, sepp = ' ') {
+	return item.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, `$1${sepp}`);
+}
+
+// Отримання хешу на адресі сайту
+function getHash() {
+	if (location.hash) { return location.hash.replace('#', ''); }
+}
+
+function menuClose() {
+	bodyUnlock();
+	document.documentElement.classList.remove("menu-open");
+}
+
+// Модуль плавної проктутки до блоку
+let gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) => {
+	const targetBlockElement = document.querySelector(targetBlock);
+	if (targetBlockElement) {
+		let headerItem = '';
+		let headerItemHeight = 0;
+		if (noHeader) {
+			headerItem = 'header.header';
+			const headerElement = document.querySelector(headerItem);
+			if (!headerElement.classList.contains('_header-scroll')) {
+				headerElement.style.cssText = `transition-duration: 0s;`;
+				headerElement.classList.add('_header-scroll');
+				headerItemHeight = headerElement.offsetHeight;
+				headerElement.classList.remove('_header-scroll');
+				setTimeout(() => {
+					headerElement.style.cssText = ``;
+				}, 0);
+			} else {
+				headerItemHeight = headerElement.offsetHeight;
+			}
+		}
+		let options = {
+			speedAsDuration: true,
+			speed: speed,
+			header: headerItem,
+			offset: offsetTop,
+			easing: 'easeOutQuad',
+		};
+		// Закриваємо меню, якщо воно відкрите
+		document.documentElement.classList.contains("menu-open") ? menuClose() : null;
+
+		if (typeof SmoothScroll !== 'undefined') {
+			// Прокручування з використанням доповнення
+			new SmoothScroll().animateScroll(targetBlockElement, '', options);
+		} else {
+			// Прокручування стандартними засобами
+			let targetBlockElementPosition = targetBlockElement.getBoundingClientRect().top + scrollY;
+			targetBlockElementPosition = headerItemHeight ? targetBlockElementPosition - headerItemHeight : targetBlockElementPosition;
+			targetBlockElementPosition = offsetTop ? targetBlockElementPosition - offsetTop : targetBlockElementPosition;
+			window.scrollTo({
+				top: targetBlockElementPosition,
+				behavior: "smooth"
+			});
+		}
+		FLS(`[gotoBlock]: Юхуу...їдемо до ${targetBlock}`);
+	} else {
+		FLS(`[gotoBlock]: Йой... Такого блоку немає на сторінці: ${targetBlock}`);
+	}
+};
+
+// Унікалізація масиву
+function uniqArray(array) {
+	return array.filter(function (item, index, self) {
+		return self.indexOf(item) === index;
+	});
+}
+
+// FLS (Full Logging System)
+function FLS(message) {
+	setTimeout(() => {
+		if (window.FLS) {
+			console.log(message);
+		}
+	}, 0);
+}
+//!: ==============================================================================================
+//** ==============================================================================================
+
+// Модуль анімація цифрового лічильника
+function digitsCounter() {
+	// Обнулення
+	if (document.querySelectorAll("[data-digits-counter]").length) {
+		document.querySelectorAll("[data-digits-counter]").forEach(element => {
+			element.dataset.digitsCounter = element.innerHTML;
+			element.innerHTML = `0`;
+		});
+	}
+
+	// Функція ініціалізації
+	function digitsCountersInit(digitsCountersItems) {
+		let digitsCounters = digitsCountersItems ? digitsCountersItems : document.querySelectorAll("[data-digits-counter]");
+		if (digitsCounters.length) {
+			digitsCounters.forEach(digitsCounter => {
+				digitsCountersAnimate(digitsCounter);
+			});
+		}
+	}
+	// Функція анімації
+	function digitsCountersAnimate(digitsCounter) {
+		let startTimestamp = null;
+		const duration = parseFloat(digitsCounter.dataset.digitsCounterSpeed) ? parseFloat(digitsCounter.dataset.digitsCounterSpeed) : 1000;
+		const startValue = parseFloat(digitsCounter.dataset.digitsCounter);
+		const format = digitsCounter.dataset.digitsCounterFormat ? digitsCounter.dataset.digitsCounterFormat : ' ';
+		const startPosition = 0;
+		const step = (timestamp) => {
+			if (!startTimestamp) startTimestamp = timestamp;
+			const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+			const value = Math.floor(progress * (startPosition + startValue));
+			digitsCounter.innerHTML = typeof digitsCounter.dataset.digitsCounterFormat !== 'undefined' ? getDigFormat(value, format) : value;
+			if (progress < 1) {
+				window.requestAnimationFrame(step);
+			}
+		};
+		window.requestAnimationFrame(step);
+	}
+	function digitsCounterAction(e) {
+		const entry = e.detail.entry;
+		const targetElement = entry.target;
+		if (targetElement.querySelectorAll("[data-digits-counter]").length) {
+			digitsCountersInit(targetElement.querySelectorAll("[data-digits-counter]"));
+		}
+	}
+
+	document.addEventListener("watcherCallback", digitsCounterAction);
+}
+
+// При підключенні модуля обробник події запуститься автоматично
+setTimeout(() => {
+	if (addWindowScrollEvent) {
+		let windowScroll = new Event("windowScroll");
+		window.addEventListener("scroll", function (e) {
+			document.dispatchEvent(windowScroll);
+		});
+	}
+}, 0);
+// ================================================================================================
+
+
+
+//** ==============================================================================================
+// Спостерігач об'єктів [всевидюче око]
+// data-watch - можна писати значення для застосування кастомного коду
+// data-watch-root - батьківський елемент всередині якого спостерігати за об'єктом
+// data-watch-margin -відступ
+// data-watch-threshold - відсоток показу об'єкта для спрацьовування
+// data-watch-once - спостерігати лише один раз
+// _watcher-view - клас який додається за появи об'єкта
+
+
+class ScrollWatcher {
+    constructor(props) {
+        let defaultConfig = {
+            logging: true,
+        }
+        this.config = Object.assign(defaultConfig, props);
+        this.observer;
+        !document.documentElement.classList.contains('watcher') ? this.scrollWatcherRun() : null;
+    }
+    // Оновлюємо конструктор
+    scrollWatcherUpdate() {
+        this.scrollWatcherRun();
+    }
+    // Запускаємо конструктор
+    scrollWatcherRun() {
+        document.documentElement.classList.add('watcher');
+        this.scrollWatcherConstructor(document.querySelectorAll('[data-watch]'));
+    }
+    // Конструктор спостерігачів
+    scrollWatcherConstructor(items) {
+        if (items.length) {
+            this.scrollWatcherLogging(`Прокинувся, стежу за об'єктами (${items.length})...`);
+            // Унікалізуємо параметри
+            let uniqParams = uniqArray(Array.from(items).map(function (item) {
+                return `${item.dataset.watchRoot ? item.dataset.watchRoot : null}|${item.dataset.watchMargin ? item.dataset.watchMargin : '0px'}|${item.dataset.watchThreshold ? item.dataset.watchThreshold : 0}`;
+            }));
+            // Отримуємо групи об'єктів з однаковими параметрами,
+            // створюємо налаштування, ініціалізуємо спостерігач
+            uniqParams.forEach(uniqParam => {
+                let uniqParamArray = uniqParam.split('|');
+                let paramsWatch = {
+                    root: uniqParamArray[0],
+                    margin: uniqParamArray[1],
+                    threshold: uniqParamArray[2]
+                }
+                let groupItems = Array.from(items).filter(function (item) {
+                    let watchRoot = item.dataset.watchRoot ? item.dataset.watchRoot : null;
+                    let watchMargin = item.dataset.watchMargin ? item.dataset.watchMargin : '0px';
+                    let watchThreshold = item.dataset.watchThreshold ? item.dataset.watchThreshold : 0;
+                    if (
+                        String(watchRoot) === paramsWatch.root &&
+                        String(watchMargin) === paramsWatch.margin &&
+                        String(watchThreshold) === paramsWatch.threshold
+                    ) {
+                        return item;
+                    }
+                });
+
+                let configWatcher = this.getScrollWatcherConfig(paramsWatch);
+
+                // Ініціалізація спостерігача зі своїми налаштуваннями
+                this.scrollWatcherInit(groupItems, configWatcher);
+            });
+        } else {
+            this.scrollWatcherLogging("Сплю, немає об'єктів для стеження. ZzzZZzz");
+        }
+    }
+    // Функція створення налаштувань
+    getScrollWatcherConfig(paramsWatch) {
+        //Створюємо налаштування
+        let configWatcher = {}
+        // Батько, у якому ведеться спостереження
+        if (document.querySelector(paramsWatch.root)) {
+            configWatcher.root = document.querySelector(paramsWatch.root);
+        } else if (paramsWatch.root !== 'null') {
+            this.scrollWatcherLogging(`Эмм... батьківського об'єкта ${paramsWatch.root} немає на сторінці`);
+        }
+        // Відступ спрацьовування
+        configWatcher.rootMargin = paramsWatch.margin;
+        if (paramsWatch.margin.indexOf('px') < 0 && paramsWatch.margin.indexOf('%') < 0) {
+            this.scrollWatcherLogging(`йой, налаштування data-watch-margin потрібно задавати в PX або %`);
+            return
+        }
+        // Точки спрацьовування
+        if (paramsWatch.threshold === 'prx') {
+            // Режим паралаксу
+            paramsWatch.threshold = [];
+            for (let i = 0; i <= 1.0; i += 0.005) {
+                paramsWatch.threshold.push(i);
+            }
+        } else {
+            paramsWatch.threshold = paramsWatch.threshold.split(',');
+        }
+        configWatcher.threshold = paramsWatch.threshold;
+
+        return configWatcher;
+    }
+    // Функція створення нового спостерігача зі своїми налаштуваннями
+    scrollWatcherCreate(configWatcher) {
+        this.observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                this.scrollWatcherCallback(entry, observer);
+            });
+        }, configWatcher);
+    }
+    // Функція ініціалізації спостерігача зі своїми налаштуваннями
+    scrollWatcherInit(items, configWatcher) {
+        // Створення нового спостерігача зі своїми налаштуваннями
+        this.scrollWatcherCreate(configWatcher);
+        // Передача спостерігачеві елементів
+        items.forEach(item => this.observer.observe(item));
+    }
+    // Функція обробки базових дій точок спрацьовування
+    scrollWatcherIntersecting(entry, targetElement) {
+        if (entry.isIntersecting) {
+            // Бачимо об'єкт
+            // Додаємо клас
+            !targetElement.classList.contains('_watcher-view') ? targetElement.classList.add('_watcher-view') : null;
+            this.scrollWatcherLogging(`Я бачу ${targetElement.classList}, додав клас _watcher-view`);
+        } else {
+            // Не бачимо об'єкт
+            // Забираємо клас
+            targetElement.classList.contains('_watcher-view') ? targetElement.classList.remove('_watcher-view') : null;
+            this.scrollWatcherLogging(`Я не бачу ${targetElement.classList}, прибрав клас _watcher-view`);
+        }
+    }
+    // Функція відключення стеження за об'єктом
+    scrollWatcherOff(targetElement, observer) {
+        observer.unobserve(targetElement);
+        this.scrollWatcherLogging(`Я перестав стежити за ${targetElement.classList}`);
+    }
+    // Функція виведення в консоль
+    scrollWatcherLogging(message) {
+        this.config.logging ? FLS(`[Спостерігач]: ${message}`) : null;
+    }
+    // Функція обробки спостереження
+    scrollWatcherCallback(entry, observer) {
+        const targetElement = entry.target;
+        // Обробка базових дій точок спрацьовування
+        this.scrollWatcherIntersecting(entry, targetElement);
+        // Якщо є атрибут data-watch-once прибираємо стеження
+        targetElement.hasAttribute('data-watch-once') && entry.isIntersecting ? this.scrollWatcherOff(targetElement, observer) : null;
+        // Створюємо свою подію зворотного зв'язку
+        document.dispatchEvent(new CustomEvent("watcherCallback", {
+            detail: {
+                entry: entry
+            }
+        }));
+
+
+        // Вибираємо потрібні об'єкти
+        if (targetElement.dataset.watch === 'some value') {
+            // пишемо унікальну специфіку
+        }
+        if (entry.isIntersecting) {
+            //Бачимо об'єкт
+        } else {
+            //Не бачимо об'єкт
+        }
+
+    }
+};
+
+// Запускаємо та додаємо в об'єкт модулів
+flsModules.watcher = new ScrollWatcher({});
 
 // ================================================================================================
+*/

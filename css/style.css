@@ -20,10 +20,6 @@ a:focus, a:active {
   outline: none;
 }
 
-nav, footer, header, aside {
-  display: block;
-}
-
 html, body {
   height: 100%;
   width: 100%;
@@ -34,8 +30,15 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 input, button, textarea {
   font-family: inherit;
+  line-height: inherit;
 }
 
 input::-ms-clear {
@@ -44,6 +47,8 @@ input::-ms-clear {
 
 button {
   cursor: pointer;
+  color: inherit;
+  background-color: transparent;
 }
 
 button::-moz-focus-inner {
@@ -53,6 +58,7 @@ button::-moz-focus-inner {
 
 a, a:visited {
   text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
@@ -69,10 +75,99 @@ img {
 
 h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
-  font-weight: 400;
+  font-weight: inherit;
 }
 
 /*--------------------*/
+/*
+math.div() - это новая функция деления.
+math.div($px, $current) аналогично ($px / $current)
+/ - деление с помощью слеша будет удалено из Scss!!!
+*/
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  line-height: 1;
+  font-size: 16px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input, button, textarea {
+  font-family: inherit;
+  line-height: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+  color: inherit;
+  background-color: transparent;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*--------------------*/
+/*
+math.div() - это новая функция деления.
+math.div($px, $current) аналогично ($px / $current)
+/ - деление с помощью слеша будет удалено из Scss!!!
+*/
 .fp-init body {
   overflow: hidden;
   -ms-touch-action: none;
@@ -287,8 +382,8 @@ body {
 }
 .active-section .section-header__label {
   opacity: 1;
-  -webkit-transition: all 1s ease 0.5s;
-  transition: all 1s ease 0.5s;
+  -webkit-transition: all 1s ease 0.4s;
+  transition: all 1s ease 0.4s;
   -webkit-transform: translate(0px, 0px);
       -ms-transform: translate(0px, 0px);
           transform: translate(0px, 0px);
@@ -338,6 +433,18 @@ body {
 }
 .section-header__text {
   max-width: 540px;
+  -webkit-transform: translate(0px, 10%);
+      -ms-transform: translate(0px, 10%);
+          transform: translate(0px, 10%);
+  opacity: 0;
+}
+.active-section .section-header__text {
+  opacity: 1;
+  -webkit-transition: all 1s ease 1.2s;
+  transition: all 1s ease 1.2s;
+  -webkit-transform: translate(0px, 0px);
+      -ms-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
 }
 .section-header-ligth .section-header__label {
   color: #E3E6EC;
@@ -364,8 +471,8 @@ body {
           align-items: center;
   gap: 50px;
   opacity: 0;
-  -webkit-transition: opacity 0.8s;
-  transition: opacity 0.8s;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 @media (max-width: 1920px) {
   .services__item {
@@ -387,18 +494,14 @@ body {
   opacity: 1;
 }
 .active-section .services__item:nth-child(1) {
-  -webkit-transition-delay: 0.5s;
-          transition-delay: 0.5s;
+  -webkit-transition-delay: 1.2s;
+          transition-delay: 1.2s;
 }
 .active-section .services__item:nth-child(2) {
-  -webkit-transition-delay: 1s;
-          transition-delay: 1s;
+  -webkit-transition-delay: 1.6s;
+          transition-delay: 1.6s;
 }
 .active-section .services__item:nth-child(3) {
-  -webkit-transition-delay: 1.5s;
-          transition-delay: 1.5s;
-}
-.active-section .services__item:nth-child(4) {
   -webkit-transition-delay: 2s;
           transition-delay: 2s;
 }
@@ -689,7 +792,32 @@ body {
 .screen-03 .values-screen-03__line span {
   display: block;
   height: 10px;
-  background-color: #1C1F25;
+  width: 95%;
+}
+@-webkit-keyframes animateWidth {
+  0% {
+    width: 0;
+    background-color: #1C1F25;
+  }
+  100% {
+    width: attr(style);
+    background-color: #1C1F25;
+  }
+}
+@keyframes animateWidth {
+  0% {
+    width: 0;
+    background-color: #1C1F25;
+  }
+  100% {
+    width: attr(style);
+    background-color: #1C1F25;
+  }
+}
+
+.active-section span {
+  -webkit-animation: animateWidth 1.5s linear 1.4s 1 forwards;
+          animation: animateWidth 1.5s linear 1.4s 1 forwards;
 }
 
 .screen-04__container {
@@ -726,25 +854,21 @@ body {
 }
 .advantages__item {
   opacity: 0;
-  -webkit-transition: opacity 0.8s;
-  transition: opacity 0.8s;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 .active-section .advantages__item {
   opacity: 1;
 }
 .active-section .advantages__item:nth-child(1) {
-  -webkit-transition-delay: 0.5s;
-          transition-delay: 0.5s;
+  -webkit-transition-delay: 1.2s;
+          transition-delay: 1.2s;
 }
 .active-section .advantages__item:nth-child(2) {
-  -webkit-transition-delay: 1s;
-          transition-delay: 1s;
+  -webkit-transition-delay: 1.6s;
+          transition-delay: 1.6s;
 }
 .active-section .advantages__item:nth-child(3) {
-  -webkit-transition-delay: 1.5s;
-          transition-delay: 1.5s;
-}
-.active-section .advantages__item:nth-child(4) {
   -webkit-transition-delay: 2s;
           transition-delay: 2s;
 }
@@ -944,6 +1068,75 @@ body {
   }
 }
 
+.services-07 {
+  display: grid;
+  gap: 60px;
+}
+@media (max-width: 1920px) {
+  .services-07 {
+    gap: calc(30px + 30 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
+.services-07__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 50px;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+@media (max-width: 1920px) {
+  .services-07__item {
+    gap: calc(10px + 40 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
+@media (max-width: 479.98px) {
+  .services-07__item {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+.active-section .services-07__item {
+  opacity: 1;
+}
+.active-section .services-07__item:nth-child(1) {
+  -webkit-transition-delay: 0.4s;
+          transition-delay: 0.4s;
+}
+.active-section .services-07__item:nth-child(2) {
+  -webkit-transition-delay: 0.8s;
+          transition-delay: 0.8s;
+}
+.active-section .services-07__item:nth-child(3) {
+  -webkit-transition-delay: 1.2s;
+          transition-delay: 1.2s;
+}
+.services-07__icon {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 60px;
+          flex: 0 0 60px;
+  height: 60px;
+}
+.services-07__icon img {
+  max-width: 100%;
+}
+.services-07__title:not(:last-child) {
+  margin-bottom: 32px;
+}
+@media (max-width: 1920px) {
+  .services-07__title:not(:last-child) {
+    margin-bottom: calc(15px + 17 * ((100vw - 320px) / (1920 - 320)));
+  }
+}
 @media (min-width: 767.98px) {
   .screen-08__container {
     min-height: 100%;
@@ -1093,6 +1286,10 @@ body {
   }
   .screen-09__section-header .section-header__title {
     margin-right: 32px;
+    -webkit-transform: translate(0px, 10%);
+        -ms-transform: translate(0px, 10%);
+            transform: translate(0px, 10%);
+    opacity: 0;
   }
 }
 @media (min-width: 991.98px) and (max-width: 1920px) {
@@ -1101,8 +1298,28 @@ body {
   }
 }
 @media (min-width: 991.98px) {
+  .active-section .screen-09__section-header .section-header__title {
+    opacity: 1;
+    -webkit-transition: all 1s ease 1.6s;
+    transition: all 1s ease 1.6s;
+    -webkit-transform: translate(0px, 0px);
+        -ms-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+  }
   .screen-09__section-header .section-header__label {
     margin-bottom: 0;
+    -webkit-transform: translate(0px, 10%);
+        -ms-transform: translate(0px, 10%);
+            transform: translate(0px, 10%);
+    opacity: 0;
+  }
+  .active-section .screen-09__section-header .section-header__label {
+    opacity: 1;
+    -webkit-transition: all 1s ease 1.2s;
+    transition: all 1s ease 1.2s;
+    -webkit-transform: translate(0px, 0px);
+        -ms-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
   }
 }
 @media (max-width: 991.98px) {
@@ -1170,6 +1387,12 @@ body {
       align-self: center;
   padding: 20px;
 }
+.item-screen-09__title {
+  -webkit-transform: translate(0px, 10%);
+      -ms-transform: translate(0px, 10%);
+          transform: translate(0px, 10%);
+  opacity: 0;
+}
 .item-screen-09__title:not(:last-child) {
   margin-bottom: 32px;
 }
@@ -1177,6 +1400,28 @@ body {
   .item-screen-09__title:not(:last-child) {
     margin-bottom: calc(15px + 17 * ((100vw - 320px) / (1920 - 320)));
   }
+}
+.active-section .item-screen-09__title {
+  opacity: 1;
+  -webkit-transition: all 1s ease 0.4s;
+  transition: all 1s ease 0.4s;
+  -webkit-transform: translate(0px, 0px);
+      -ms-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}
+.item-screen-09__text {
+  -webkit-transform: translate(0px, 10%);
+      -ms-transform: translate(0px, 10%);
+          transform: translate(0px, 10%);
+  opacity: 0;
+}
+.active-section .item-screen-09__text {
+  opacity: 1;
+  -webkit-transition: all 1s ease 0.8s;
+  transition: all 1s ease 0.8s;
+  -webkit-transform: translate(0px, 0px);
+      -ms-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
 }
 .item-screen-09__image {
   -webkit-box-flex: 0;
@@ -1206,7 +1451,6 @@ body {
   display: -ms-flexbox;
   display: flex;
   min-height: 100%;
-  margin-bottom: 50px;
 }
 @media (max-width: 767.98px) {
   .screen-10__container {
@@ -1302,8 +1546,8 @@ body {
 }
 .active-section .screen-10__body {
   opacity: 1;
-  -webkit-transition: all 1s ease 0.5s;
-  transition: all 1s ease 0.5s;
+  -webkit-transition: all 0.8s ease 0.5s;
+  transition: all 0.8s ease 0.5s;
   -webkit-transform: translate(0px, 0px);
       -ms-transform: translate(0px, 0px);
           transform: translate(0px, 0px);
@@ -1520,7 +1764,7 @@ body {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    gap: 30px;
+    gap: 1.875rem;
   }
 }
 .screen-12__item {
@@ -1565,3 +1809,9 @@ body {
     min-height: 100%;
   }
 }
+
+/*
+1.Поработать над адаптивностью изображения Screen-02
+4.попробовать вариант когда каждая секция всегда вмещается на 1 экран любого устройства
+5.ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss
+*/

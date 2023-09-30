@@ -1,18 +1,14 @@
 // подключаем шрифты (дописываем &display=swap, это важно для оптимизации) ========================
 @import url('https://fonts.googleapis.com/css?family=Quicksand:regular,700&display=swap');
 // ================================================================================================
-// подключаем обнуляющий стиль и миксины ==========================================================
+// ================================================================================================
 @import "_nullstyle";
+@import "_variables";
 @import "_mixins";
 @import "_fullpage";
 // ================================================================================================
 
 // Global =========================================================================================
-$mainColor: #6A6E77;
-$darkColor: #1C1F25;
-$softColor: #E3E6EC;
-$lightColor: #FFFFFF;
-
 body {
     font-family: 'Quicksand';
     color: $mainColor;
@@ -68,7 +64,7 @@ body {
         opacity: 0;
         .active-section & {
             opacity: 1;
-            transition: all 1s ease 0.5s;
+            transition: all 1s ease 0.4s;
             transform: translate(0px, 0px);
         }
         line-height: calc(31 / 25);
@@ -102,6 +98,13 @@ body {
     // .section-header__text
     &__text {
         max-width: 540px;
+        transform: translate(0px, 10%);
+        opacity: 0;
+        .active-section & {
+            opacity: 1;
+            transition: all 1s ease 1.2s;
+            transform: translate(0px, 0px);
+        }
     }
 
     // .section-header__light
@@ -129,10 +132,11 @@ body {
             align-items: flex-start;
         }
         opacity: 0;
-        transition: opacity 0.8s;
+        transition: opacity 0.5s;
         .active-section & {
-            @for $i from 1 through 4 {
-                $delay: $i * 0.5;
+            $delay: 0.8;
+            @for $i from 1 through 3 {
+                $delay: $delay + 0.4;
                 &:nth-child(#{$i}) {
                     transition-delay: #{$delay}s;
                 }
@@ -227,8 +231,6 @@ body {
     }
 }
 // ================================================================================================
-//TODO: Счетчик секции привязать к высоте блока "screen-01__body" через js!
-//TODO: Изменить цвет булета при скролле (когда переходим на второй слайд)
 
 // Section-02 =====================================================================================
 .screen-02 {
@@ -276,7 +278,6 @@ body {
     }
 }
 // ================================================================================================
-//TODO: Поработать над адаптивностью изображения Screen-02
 
 // Section-03 =====================================================================================
 .screen-03 {
@@ -377,11 +378,26 @@ body {
             span {
                 display: block;
                 height: 10px;
-                background-color: $darkColor;
+                width: 95%;
+            }
+            $width: attr(style); //Получите значение style атрибута
+            @keyframes animateWidth {
+                0% {
+                    width: 0; //Начальная ширина элемента (0%)
+                    background-color: $darkColor;
+                }
+                100% {
+                    width: #{$width}; //Конечная ширина элемента в зависимости от значения style="width:" в HTML
+                    background-color: $darkColor;
+                }
             }
         }
     }
 }
+.active-section span {
+    animation: animateWidth 1.5s linear 1.4s 1 forwards; //задержка больше на 0.2 для лучшей синхронизации с задержкой счетчика
+}
+
 // ================================================================================================
 
 // Section-04 =====================================================================================
@@ -415,10 +431,11 @@ body {
     // .advantages__item
     &__item {
         opacity: 0;
-        transition: opacity 0.8s;
+        transition: opacity 0.5s;
         .active-section & {
-            @for $i from 1 through 4 {
-                $delay: $i * 0.5;
+            $delay: 0.8;
+            @for $i from 1 through 3 {
+                $delay: $delay + 0.4;
                 &:nth-child(#{$i}) {
                     transition-delay: #{$delay}s;
                 }
@@ -594,6 +611,57 @@ body {
         }
     }
 }
+
+.services-07 {
+    display: grid;
+    @include adaptiv-value("gap", 60, 30, 1920, 1920, 320, 1);
+    // .services-07__item
+    &__item {
+        display: flex;
+        align-items: center;
+        @include adaptiv-value("gap", 50, 10, 1920, 1920, 320, 1);
+        @media (max-width: $mobileSmall) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        opacity: 0;
+        transition: opacity 0.5s;
+        .active-section & {
+            $delay: 0;
+            @for $i from 1 through 3 {
+                $delay: $delay + 0.4;
+                &:nth-child(#{$i}) {
+                    transition-delay: #{$delay}s;
+                }
+            }
+            opacity: 1;
+        }
+    }
+
+    // .services-07__icon
+    &__icon {
+        flex: 0 0 60px;
+        height: 60px;
+        img {
+            max-width: 100%;
+        }
+    }
+
+    // .services-07__body
+    &__body {
+    }
+
+    // .services-07__title
+    &__title {
+        &:not(:last-child) {
+            @include adaptiv-value("margin-bottom", 32, 15, 1920, 1920, 320, 1);
+        }
+    }
+
+    // .services-07__text
+    &__text {
+    }
+}
 // ================================================================================================
 // Section-08 =====================================================================================
 .screen-08 {
@@ -679,7 +747,6 @@ body {
     &__label {}
 }
 // ================================================================================================
-//TODO: запуск счетчиков после того как закончится анимация заголовка
 
 // Section-09 =====================================================================================
 .screen-09 {
@@ -712,10 +779,24 @@ body {
     
             .section-header__title {
                 @include adaptiv-value("margin-right", 32, 10, 1920, 1920, 320, 1);
+                transform: translate(0px, 10%);
+                opacity: 0;
+                .active-section & {
+                    opacity: 1;
+                    transition: all 1s ease 1.6s;
+                    transform: translate(0px, 0px);
+                }
             }
     
             .section-header__label {
                 margin-bottom: 0;
+                transform: translate(0px, 10%);
+                opacity: 0;
+                .active-section & {
+                    opacity: 1;
+                    transition: all 1s ease 1.2s;
+                    transform: translate(0px, 0px);
+                }
             }
         }
         @media (max-width: $tablet) {
@@ -766,10 +847,25 @@ body {
         &:not(:last-child) {
             @include adaptiv-value("margin-bottom", 32, 15, 1920, 1920, 320, 1);
         }
+        transform: translate(0px, 10%);
+        opacity: 0;
+        .active-section & {
+            opacity: 1;
+            transition: all 1s ease 0.4s;
+            transform: translate(0px, 0px);
+        }
     }
 
     // .item-screen-09__text
-    &__text {}
+    &__text {
+        transform: translate(0px, 10%);
+        opacity: 0;
+        .active-section & {
+            opacity: 1;
+            transition: all 1s ease 0.8s;
+            transform: translate(0px, 0px);
+        }
+    }
 
     // .item-screen-09__image
     &__image {
@@ -804,7 +900,6 @@ body {
     &__container {
         display: flex;
         min-height: 100%;
-        margin-bottom: 50px;
         @media (max-width: $mobile) {
             padding-top: 45px;
             flex-direction: column;
@@ -862,7 +957,7 @@ body {
         opacity: 0;
         .active-section & {
             opacity: 1;
-            transition: all 1s ease 0.5s;
+            transition: all 0.8s ease 0.5s;
             transform: translate(0px, 0px);
         }
     }
@@ -1018,7 +1113,8 @@ body {
 
         @media (max-width: $mobile) {
             flex-direction: column;
-            gap: 30px;
+            //gap: 30px;
+            gap: rem(30);
         }
     }
 
@@ -1058,6 +1154,9 @@ body {
     }
 }
 // ================================================================================================
-//TODO: ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss
-//TODO: анимация счетчиков должна начинаться с 0!
-//TODO: последовательность анимации / особенно на адаптиве
+//Fix:
+/*
+1.Поработать над адаптивностью изображения Screen-02
+4.попробовать вариант когда каждая секция всегда вмещается на 1 экран любого устройства
+5.ДЛЯ ВСЕГО САЙТА!!! Перевести все пиксели в rem с помощью функции scss
+*/

@@ -1,12 +1,8 @@
 // ================================================================================================
-$pc: 1440px;
-$tablet: 991.98px;
-$mobile: 767.98px;
-$mobileSmall: 479.98px;
-$mainColor: #6A6E77;
-$darkColor: #1C1F25;
-$softColor: #E3E6EC;
-$lightColor: #FFFFFF;
+@import "_nullstyle";
+@import "_variables";
+@import "_mixins";
+// ================================================================================================
 
 body {
 	.fp-init & {
@@ -66,7 +62,6 @@ body {
 	position: fixed;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	//!: right: rem(40);
     @include adaptiv-value("left", 120, 7.5, 1920, 1920, 320, 1);
 	max-height: 100%;
 	display: flex;
@@ -76,9 +71,6 @@ body {
 	justify-content: center;
 	z-index: 2;
 	gap: 10px;
-	// @media (max-width: $pc) {
-	// 	right: 20px;
-	// }
 	@media (max-width: $mobile) {
 		top: auto;
 		bottom: 20px;
@@ -113,5 +105,3 @@ body {
         opacity: 1;
 	}
 }
-//TODO: Разобраться с функцией rem(). Почему не работает? Оригинал кода с функциями rem() в файле fullpage.scss
-//?: Почему переменные цвета не работают в этом файле? $darkColor / пробовал применять на булетах - не работает!

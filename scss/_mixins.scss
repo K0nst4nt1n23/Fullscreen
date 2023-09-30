@@ -1,4 +1,8 @@
-//Адаптивное свойство (мой вариант)
+// Подключаем Scss модуль =========================================================================
+@use "sass:math";
+// ================================================================================================
+
+// Адаптивное свойство (мой вариант) ==============================================================
 @mixin adaptiv-value($property, $startSize, $minSize, $maxWidth, $maxWidthContainer, $minWidth, $type) {
 	$addSize: $startSize - $minSize;
 	@if $type==1 {
@@ -18,4 +22,49 @@
 		#{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$minWidth + px}) / (#{$maxWidth} - #{$minWidth})));
 	}
 }
+
+// Новий варіант!!!
+@mixin adaptiveValue($property, $startSize, $minSize, $maxWidth, $minWidth, $type: 0, $maxWidthContainer: $maxWidth) {
+	$addSize: $startSize - $minSize;
+	@if $type==1 {
+		//Только если меньше контейнера
+		#{$property}: $startSize + px;
+		@media (max-width: #{$maxWidthContainer + px}) {
+			#{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$minWidth + px}) / (#{$maxWidthContainer} - #{$minWidth})));
+		}
+	} @else if $type==2 {
+		//Только если больше контейнера
+		#{$property}: $startSize + px;
+		@media (min-width: #{$maxWidthContainer + px}) {
+			#{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$minWidth + px}) / (#{$maxWidth} - #{$minWidth})));
+		}
+	} @else {
+		//Всегда
+		#{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$minWidth + px}) / (#{$maxWidth} - #{$minWidth})));
+	}
+}
 //TODO: Расписать как все работает!
+// ================================================================================================
+
+// Functions ======================================================================================
+//Percent
+@function percent($px, $from: 100) { //если не указать $from то по умолчанию он будет равен 100
+	$result: math.div($px, $from) * 100%;
+	@return $result;
+}
+//REM (размер относительно размера шрифта БРАУЗЕРА или font-size в HTML)
+@function rem($px, $current: 16) { //если не указать $current то по умолчанию он будет равен 16
+	$result: math.div($px, $current) + rem;
+	@return $result;
+}
+//EM (размер относительно текущего или унаследованного font-size БЛОКА)
+@function em($px, $current: 16) { //если не указать $current то по умолчанию он будет равен 16
+	$result: math.div($px, $current) + em;
+	@return $result;
+}
+/*
+math.div() - это новая функция деления.
+math.div($px, $current) аналогично ($px / $current)
+/ - деление с помощью слеша будет удалено из Scss!!!
+*/
+// ================================================================================================

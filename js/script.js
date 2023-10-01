@@ -725,7 +725,7 @@ function windowLoad() {
             digitsCountersInit(digitsCountersItems);
           }
           // Отключить отслеживание после срабатывания
-          observer.unobserve(targetElement);
+          //observer.unobserve(targetElement);
         }
       });
     }, options);
